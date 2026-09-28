@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p id="demo"></p>
+    <script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                myFunction(xhttp);
+            }
+        };
+        xhttp.open("GET", "danhsachnhanvien.xml", true);
+        xhttp.send();
+        function myFunction(xml) {
+            var xmlDoc = xml.responseXML;
+            var x = xmlDoc.getElementsByTagName("nhanvien");
+            var result = "Không tìm thấy nhân viên!";
+            for (var i = 0; i < x.length; i++) {
+                var manv = x[i].getElementsByTagName("manv")[0].childNodes[0].nodeValue;
+                if (manv == "002") {
+                    var hoten = x[i].getElementsByTagName("hoten")[0].childNodes[0].nodeValue;
+                    result = "Họ tên nhân viên có manv = 002 là: " + hoten;
+                    break;
+                }
+            }
+            document.getElementById("demo").innerHTML = result;
+        }
+    </script>
+</body>
+</html>
